@@ -1,4 +1,4 @@
-#! /bin/bash
+ #!/bin/bash
 
 while true; do
     echo "Administración de Usuarios y Grupos - Elija una opción:"
@@ -21,8 +21,10 @@ while true; do
     1) 
         echo "Escribe el nombre del usuario"
         read user
-        # adduser $user
-        # passwd $user
+
+        adduser $user
+        passwd $user
+
         echo "Usuario $user creado"
         ;;
 
@@ -44,39 +46,49 @@ while true; do
         1) 
             echo "Escribe el nuevo nombre del usuario"
             read userN
-            # usermod -l $userN $userM
+						
+            usermod -l $userN $userM
+
             echo "Nombre original: $userM, Usuario nuevo: $userN"
             ;;
 
         2) 
             echo "Escribe el directorio al que deseas mover al usuario"
             read directory
-            # usermod -d $directory -m $userM
+
+            usermod -d $directory -m $userM
+
             echo "Directorio: $directory, Usuario: $userM"
             ;;
 
         3) 
             echo "Ingresa el grupo(s) al que deseas asignar al usuario (si el usuario es agregado a varios, sepáralos por espacios)"
             read groups
-            # usermod -G $groups $userM
-            echo "Usuario $userM agregado al(s) grupo(s): $groups"
+
+            usermod -G $groups $userM
+
+            echo "Usuario $userM agregado a grupo(s): $groups"
             ;;
 
         4) 
             echo "Escribe la fecha de expiración del usuario (AAAA-MM-DD)"
             read date
-            # usermod --expiredate $date $useroM
-            echo "Fecha de expiración del usuario: $date"
+
+            usermod --expiredate $date $userM
+
+            echo "Fecha de expiración del usuario $userM: $date"
             ;;
 
         5) 
-            # usermod --lock $userM
-            echo "Contraseña de usuario bloqueada: $userM"
+            usermod --lock $userM
+
+            echo "Contraseña de usuario $userM bloqueada"
             ;;
 
         6) 
-            # usermod --unlock $userM
-            echo "Contraseña de usuario desbloqueada: $userM"
+            usermod --unlock $userM
+
+            echo "Contraseña de usuario $userM desbloqueada"
             ;;
         esac
         ;;
@@ -84,22 +96,32 @@ while true; do
     3) 
         echo "Escribe el nombre del usuario que deseas eliminar"
         read userE
-        # userdel $userE
-        echo "Usuario eliminado: $userE"
+
+        userdel $userE
+
+        echo "Usuario $userE eliminado"
         ;;
 
     4) 
         echo "Escribe el nombre del usuario que deseas eliminar con archivos"
         read userE
-        # userdel -rf $userE
-        echo "Usuario eliminado con archivos: $userE"
+
+        userdel -rf $userE
+
+        echo "Usuario $userE eliminado con archivos"
         ;;
 
     5) 
-        # groups $userM
+				echo "Usuario a mostrar"
+				read userM
+
+        groups $userM
         ;;
 
     6) 
+				echo "Usuario para revisar"
+				read userM
+
         echo "Elije una opción:"
         echo "1: Fecha de expiración de Contraseña de usuario"
         echo "2: Número de días para la expiración de contraseña de usuario"
@@ -109,40 +131,41 @@ while true; do
 
         case $pass in
         1) 
-            # chage --list $userM
+            chage --list $userM
             ;;
 
         2) 
-            # chage -M 90 $userM
+            chage -M 90 $userM
             ;;
 
         3) 
-            # chage -d $userM
+            chage -d 0 $userM
             ;;
         esac
         ;;
 
     7) 
-        # nano /etc/passwd
-				# cat /etc/passwd
+        nano /etc/passwd
         ;;
 
     8) 
-        # nano /etc/group
-				# cat /etc/group
+        nano /etc/group
         ;;
 
     9) 
         echo "Escribe el nombre del nuevo Grupo"
         read group
-        # groupadd $group
-        # groupadd -r $group # grupo en el sistema
+
+        groupadd $group
+        # groupadd -r $group grupo en el sistema
+
         echo "Grupo $group creado"
         ;;
 
     10) 
         echo "Ingresa el nombre del grupo que deseas modificar"
         read groupM
+
         echo "1: Modificar nombre del grupo"
         echo "2: Agregar usuario a un grupo "
         echo "3: Eliminar usuario de grupo"
@@ -153,25 +176,33 @@ while true; do
         1) 
             echo "Ingresa el nuevo nombre del grupo"
             read groupN
-            # groupmod -n $groupM $groupN
+
+            groupmod -n $groupN $groupM
+
             echo "Nombre del grupo cambiado a: $groupN"
             ;;
 
         2) 
             echo "Ingresa el usuario que quieres agregar al grupo"
             read userG
+
             echo "Ingresa el nombre del grupo al que será agregado el usuario"
             read groupU
-            # gpasswd -a $userG $groupU
+
+            gpasswd -a $userG $groupU
+
             echo "Usuario $userG agregado al grupo $groupU"
             ;;
 
         3) 
             echo "Ingresa el usuario que quieres eliminar del grupo"
             read userEl
+
             echo "Ingresa el nombre del grupo al que será eliminado el usuario"
             read groupEl
-            # gpasswd -d $userEl $groupEl
+
+            gpasswd -d $userEl $groupEl
+
             echo "Usuario $userEl eliminado del grupo $groupEl"
             ;;
         esac
@@ -180,7 +211,9 @@ while true; do
     11) 
         echo "Ingresa el nombre del grupo que deseas eliminar"
         read groupB
-        # groupdel $groupB
+
+        groupdel $groupB
+				
         echo "Grupo $groupB eliminado"
         ;;
 
